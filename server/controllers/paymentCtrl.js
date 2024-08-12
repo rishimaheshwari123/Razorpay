@@ -7,7 +7,7 @@ const { paymentSuccessEmail } = require("../template/paymentSuccessEmail");
 
 let amount;
 const chechOutCtrl = async (req, res) => {
-    amount = Number(req.body.amount * 100);
+    amount = Number(req.body.amount);
     try {
         const options = {
             amount: Number(req.body.amount * 100),
