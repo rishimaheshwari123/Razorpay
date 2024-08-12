@@ -4,7 +4,10 @@ const paymentModel = require("../models/paymentModel");
 const mailSender = require("../config/mailSender");
 const { paymentSuccessEmail } = require("../template/paymentSuccessEmail");
 // create order 
+
+let amount;
 const chechOutCtrl = async (req, res) => {
+    amount = Number(req.body.amount * 100);
     try {
         const options = {
             amount: Number(req.body.amount * 100),
@@ -42,11 +45,11 @@ const paymentVerification = async (req, res) => {
                 razorpay_signature
             });
 
-            const amountInRs = req.body.amount / 100;
+            // const amountInRs = req.body.amount / 100;
             await mailSender(
                 "rishimaheshwari010@gmail.com",
                 "Payment Received",
-                paymentSuccessEmail(amountInRs, razorpay_order_id)
+                paymentSuccessEmail(amount, razorpay_order_id)
             );
 
             // Redirect to frontend success page
